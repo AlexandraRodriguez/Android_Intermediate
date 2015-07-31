@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_values">
+        <item>Todos</item>
+        <item>Pizza</item>
+        <item>Pollo</item>
+        <item>Comida Tipica</item>
+        <item>Heladerias</item>
+        <item>Carnes y Churrascos</item>
+        <item>Comida Rapida</item>
+        <item>Cafe</item>
+        <item>Restaurantes</item>
+        <item>Variados</item>
+    </string-array>
+</resources>
