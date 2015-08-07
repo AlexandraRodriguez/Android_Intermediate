@@ -1,6 +1,5 @@
 package com.example.ale.nearbylocations;
 
-import android.app.ActionBar;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
@@ -17,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -28,6 +28,7 @@ import com.parse.ParseQuery;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements LocationProvider.LocationCallback {
@@ -40,8 +41,8 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
     private double currentLatitude;
     private double currentLongitude;
     private Spinner spinner;
-
-    //private TextView nameTest;
+    private HashMap<String, MarkerManager> hashMap;
+    private String currentType;
 
 
     @Override
@@ -50,12 +51,13 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
         setContentView(R.layout.activity_maps);
         txtLatitude = (TextView) findViewById(R.id.latitude);
         txtLongitude = (TextView) findViewById(R.id.longitude);
-        setSpinner();
+        hashMap = new HashMap<String, MarkerManager>(10);
         setUpMapIfNeeded();
+        setSpinner();
         mLocationProvider = new LocationProvider(this, this);
         //nameTest = (TextView)findViewById(R.id.name);
 
-        ParseAnalytics.trackAppOpenedInBackground(getIntent());
+        //ParseAnalytics.trackAppOpenedInBackground(getIntent());
     }
 
     private void setSpinner() {
@@ -82,7 +84,20 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
     }
 
     public void show(String type) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Place");
+        if (currentType != type) {
+
+            if (hashMap.containsKey(type)) {
+                hashMap.get(currentType).hideMarkers();
+                hashMap.get(type).showMarkers();
+                currentType = type;
+            } else {
+                currentType = type;
+                new PlaceFinder().execute(currentType);
+            }
+        }
+
+
+        /*ParseQuery<ParseObject> query = ParseQuery.getQuery("Place");
         if (type != "Todos") {
             query.whereEqualTo("type", type);
         }
@@ -104,8 +119,10 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
                     Log.e("tag", "exception");
                 }
             }
-        });
+        });*/
     }
+
+
 
     @Override
     protected void onResume() {
@@ -136,13 +153,17 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
      * method in {@link #onResume()} to guarantee that it will be called.
      */
     private void setUpMapIfNeeded() {
+        Log.e("tag", "inside setupMapIfNeeded");
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
+            Log.e("tag", "map = null");
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+            Log.e("tag", "map setted");
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
+                Log.e("tag", "map wasn't null");
                 setUpMap();
             }
         }
@@ -155,8 +176,10 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
+        Log.e("tag", "inside setupMap");
         LatLng current = new LatLng(currentLatitude, currentLongitude);
         mMap.addMarker(new MarkerOptions().position(current).title("I'm here!"));
+        //marker.setVisible(true);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 16f));
     }
 
@@ -176,6 +199,32 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
 
     public double getCurrentLongitude() {
         return currentLongitude;
+    }
+
+    private class PlaceFinder extends AsyncTask<String, Void, ArrayList<Place>>{
+
+        @Override
+        protected ArrayList<Place> doInBackground(String... params) {
+            PlacesManager placesManager = new PlacesManager();
+            ArrayList<Place> places = placesManager.findPlaces(currentLatitude, currentLongitude, params[0]);
+
+            return places;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Place> places){
+            MarkerManager markerManager = new MarkerManager();
+
+            for(int i = 0; i<places.size(); i++) {
+                Place place = places.get(i);
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(place.getLat(), place.getLng()))
+                        .title(place.getName()));
+                markerManager.add(marker);
+            }
+
+            hashMap.put(currentType, markerManager);
+        }
     }
 
 }
