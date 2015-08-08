@@ -15,49 +15,45 @@ import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.ParseAnalytics;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements LocationProvider.LocationCallback {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LocationProvider mLocationProvider;
-
-    private TextView txtLatitude;
-    private TextView txtLongitude;
+    private TextView txtLoc;
     private double currentLatitude;
     private double currentLongitude;
     private Spinner spinner;
     private HashMap<String, MarkerManager> hashMap;
     private String currentType;
 
-
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_maps);
-        txtLatitude = (TextView) findViewById(R.id.latitude);
-        txtLongitude = (TextView) findViewById(R.id.longitude);
+        txtLoc = (TextView) findViewById(R.id.latlng);
+        currentType = "none";
         hashMap = new HashMap<String, MarkerManager>(10);
         setUpMapIfNeeded();
         setSpinner();
         mLocationProvider = new LocationProvider(this, this);
-        //nameTest = (TextView)findViewById(R.id.name);
+    }
 
-        //ParseAnalytics.trackAppOpenedInBackground(getIntent());
+    public void onPreviousPressed(View view){
+        MarkerManager manager = hashMap.get(currentType);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(manager.previous(), 16f));
+    }
+
+    public void onNextPressed(View view){
+        MarkerManager manager = hashMap.get(currentType);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(manager.next(), 16f));
     }
 
     private void setSpinner() {
@@ -72,7 +68,8 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String category = parent.getItemAtPosition(position).toString();
-                show(category);
+                Log.e("tag", "item selected");
+                showMarkers(category);
             }
 
             @Override
@@ -83,46 +80,27 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
 
     }
 
-    public void show(String type) {
-        if (currentType != type) {
-
+    public void showMarkers(String type) {
+        Log.e("tag", "inside showMarkers");
+        Log.e("tag", "type: " + type);
+        Log.e("tag", "currentType: " + currentType);
+        if (!currentType.equals(type)) {
+            Log.e("tag", "inside first if");
             if (hashMap.containsKey(type)) {
+                Log.e("tag", "type alredy was in hashmap");
                 hashMap.get(currentType).hideMarkers();
                 hashMap.get(type).showMarkers();
                 currentType = type;
             } else {
+                Log.e("tag", "new type");
+                if(hashMap.containsKey(currentType)){
+                    hashMap.get(currentType).hideMarkers();
+                }
                 currentType = type;
                 new PlaceFinder().execute(currentType);
             }
         }
-
-
-        /*ParseQuery<ParseObject> query = ParseQuery.getQuery("Place");
-        if (type != "Todos") {
-            query.whereEqualTo("type", type);
-        }
-        Log.e("tag", "llamada");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if (e == null) {
-                    Log.e("tag", "lista");
-                    for (int i = 0; i < list.size(); i++) {
-                        Log.e("tag", "inside the for");
-                        ParseObject place = list.get(i);
-                        double lat = place.getDouble("latitude");
-                        double lng = place.getDouble("longitude");
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(place.getString("name")));
-                    }
-
-                } else {
-                    Log.e("tag", "exception");
-                }
-            }
-        });*/
     }
-
-
 
     @Override
     protected void onResume() {
@@ -153,17 +131,13 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
      * method in {@link #onResume()} to guarantee that it will be called.
      */
     private void setUpMapIfNeeded() {
-        Log.e("tag", "inside setupMapIfNeeded");
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
-            Log.e("tag", "map = null");
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            Log.e("tag", "map setted");
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
-                Log.e("tag", "map wasn't null");
                 setUpMap();
             }
         }
@@ -176,22 +150,18 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        Log.e("tag", "inside setupMap");
         LatLng current = new LatLng(currentLatitude, currentLongitude);
-        mMap.addMarker(new MarkerOptions().position(current).title("I'm here!"));
-        //marker.setVisible(true);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 16f));
+        mMap.addMarker(new MarkerOptions().position(current).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("Estoy aquí!"));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 14f));
     }
 
     public void handleNewLocation(Location location) {
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
-        txtLatitude.setText("Latitude: " + String.valueOf(location.getLatitude()));
-        txtLongitude.setText("Longitude: " + String.valueOf(location.getLongitude()));
+        txtLoc.setText("Ubicación actual: "+ String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()));
         setUpMap();
 
     }
-
 
     public double getCurrentLatitude() {
         return currentLatitude;
@@ -201,30 +171,31 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
         return currentLongitude;
     }
 
-    private class PlaceFinder extends AsyncTask<String, Void, ArrayList<Place>>{
+    private class PlaceFinder extends AsyncTask<String, Void, ArrayList<Place>> {
 
         @Override
         protected ArrayList<Place> doInBackground(String... params) {
             PlacesManager placesManager = new PlacesManager();
             ArrayList<Place> places = placesManager.findPlaces(currentLatitude, currentLongitude, params[0]);
-
             return places;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Place> places){
+        protected void onPostExecute(ArrayList<Place> places) {
             MarkerManager markerManager = new MarkerManager();
-
-            for(int i = 0; i<places.size(); i++) {
+            Log.e("tag", "inside onPostExecute, places size: "+ places.size());
+            for (int i = 0; i < places.size(); i++) {
+                Log.e("tag", "inside the for: " + i);
                 Place place = places.get(i);
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(place.getLat(), place.getLng()))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                         .title(place.getName()));
                 markerManager.add(marker);
             }
 
             hashMap.put(currentType, markerManager);
+            Log.e("tag", "new type added to hashmap");
         }
     }
-
 }

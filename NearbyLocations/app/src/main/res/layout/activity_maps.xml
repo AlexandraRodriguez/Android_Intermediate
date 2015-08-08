@@ -2,13 +2,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@color/green">
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="A dónde se le antoja joven?"
+            android:textSize="15dp"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+    </LinearLayout>
 
 
     <fragment
@@ -16,34 +38,27 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MapsActivity"
-        android:layout_weight="1"/>
+        android:layout_weight="0.3"
+        tools:context=".MapsActivity" />
+
+
+    <TextView
+        android:id="@+id/latlng"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Ubicación actual: "
+        android:gravity="center"
+        android:textSize="15dp"
+        android:layout_weight="1"
+        android:background="@color/green"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="3">
-
-
-        <TextView
-            android:id="@+id/latitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Latitude: " />
-
-        <TextView
-            android:id="@+id/longitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Longitude: " />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@color/soft_violet">
 
         <Button
             android:id="@+id/previous"
@@ -51,7 +66,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Previous" />
+            android:text="Anterior"
+            android:textColor="@color/white"
+            android:onClick="onPreviousPressed"
+            android:background="@color/watermelon"/>
 
         <Button
             android:id="@+id/next"
@@ -59,7 +77,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Next" />
+            android:text="Siguiente"
+            android:textColor="@color/white"
+            android:onClick="onNextPressed"
+            android:background="@color/watermelon"/>
     </LinearLayout>
 
 
