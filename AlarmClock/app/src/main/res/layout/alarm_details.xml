@@ -3,33 +3,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="6">
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:orientation="horizontal"
         android:padding="15dp">
 
-            <com.rey.material.widget.TextView
-                android:id="@+id/hours"
-                style="@style/Material.Drawable.Ripple.Touch.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="HH : MM"
-                android:textSize="40dp"
-                android:gravity="center"
-                android:layout_margin="20dp"
-                app:rd_enable="true"
-                android:layout_weight="1"
-                android:onClick="onTimeTextSelected"
-                android:clickable="true" />
+        <com.rey.material.widget.TextView
+            android:id="@+id/hours"
+            style="@style/Material.Drawable.Ripple.Touch.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onTimeTextSelected"
+            android:text="HH : MM"
+            android:textSize="40dp"
+            app:rd_enable="true" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/toggSunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Sunday" />
+
+        <ToggleButton
+            android:id="@+id/toggMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Monday" />
+
+        <ToggleButton
+            android:id="@+id/toggTuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Tuesday" />
+
+        <ToggleButton
+            android:id="@+id/toggWednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Wednesday" />
+
+        <ToggleButton
+            android:id="@+id/toggThursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Thursday" />
+
+        <ToggleButton
+            android:id="@+id/toggFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Friday" />
+
+        <ToggleButton
+            android:id="@+id/toggSaturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Saturday" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:padding="15dp">
 
@@ -39,12 +91,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="setRingtone"
             android:text="Default Ringtone"
             android:textSize="20dp"
-            app:rd_enable="true"
-            android:clickable="true"
-            android:onClick="setRingtone" />
-
+            app:rd_enable="true" />
 
 
         <com.rey.material.widget.CheckBox
@@ -60,25 +111,46 @@
     </LinearLayout>
 
     <com.rey.material.widget.EditText
-        style="@style/Material.Drawable.Ripple.Touch.Light"
         android:id="@+id/label"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="15dp"
-        android:layout_margin="20dp"
-        app:rd_enable="true"
-        android:hint="Label"
-        android:textSize="20dp"
-        android:clickable="true"
-        android:onClick="setLabel" />
-
-    <com.rey.material.widget.Button
         style="@style/Material.Drawable.Ripple.Touch.Light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:hint="Label"
+        android:onClick="setLabel"
+        android:padding="15dp"
+        android:textSize="20dp"
         app:rd_enable="true" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.rey.material.widget.Button
+            style="@style/Material.Drawable.Ripple.Touch.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="saveAlarm"
+            android:text="Save"
+            app:rd_enable="true" />
+
+        <com.rey.material.widget.Button
+            style="@style/Material.Drawable.Ripple.Touch.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="deleteAlarm"
+            android:text="Delete"
+            app:rd_enable="true" />
+    </LinearLayout>
+
 
 </LinearLayout>

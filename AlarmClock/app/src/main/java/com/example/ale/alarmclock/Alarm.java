@@ -6,14 +6,21 @@ import android.os.Parcelable;
 
 public class Alarm {
 
-    private long id = -1;
+    private long id ;
     private int hour;
     private int minutes;
     private String name;
     private Uri alarmTone;
     private boolean enabled;
+    private String label;
 
     public Alarm() {
+        id = -1;
+        hour = 0;
+        minutes = 0;
+        name = "";
+        alarmTone = null;
+        enabled = false;
     }
 
     public long getId() {
@@ -62,6 +69,13 @@ public class Alarm {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getAlarmToneName(){
+        String res  = "";
+        if(alarmTone != null)
+            res = alarmTone.toString();
+        return res;
     }
 
 }

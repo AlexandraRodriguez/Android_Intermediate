@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ale.alarmclock">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,9 +17,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AlarmDetailsActivity">
+        <activity android:name=".AlarmDetailsActivity"></activity>
 
-        </activity>
+        <activity android:name=".ActivatedAlarmActivity"></activity>
+
+        <service android:name="com.example.ale.alarmclock.AlarmService"
+            android:enabled="true"/>
+
+        <receiver android:name="com.example.ale.alarmclock.AlarmReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

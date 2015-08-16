@@ -48,7 +48,7 @@ public class AlarmDataBaseManager {
         values.put(CN_TIME_HOUR, alarm.getHour());
         values.put(CN_TIME_MINUTE, alarm.getMinutes());
         values.put(CN_ENABLED, alarm.isEnabled());
-        values.put(CN_ALARM_TONE, alarm.getAlarmTone().toString());
+        values.put(CN_ALARM_TONE, alarm.getAlarmToneName());
 
         return values;
     }

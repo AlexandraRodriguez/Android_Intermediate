@@ -2,6 +2,7 @@ package com.example.ale.alarmclock;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class AlarmAdapter extends BaseAdapter {
 
         Switch switchFromList = (Switch) convertView.findViewById(R.id.swithFromList);
         switchFromList.setChecked(alarm.isEnabled());
-        //switchFromList.setTag((long) alarm.getId());
+        Log.e("TAG", "enabled(switch): " + alarm.isEnabled());
         switchFromList.setTag(Long.valueOf(alarm.getId()));
         switchFromList.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
@@ -72,11 +73,14 @@ public class AlarmAdapter extends BaseAdapter {
 
             }
         });
+        Log.e("TAG", "tag from alarm: " + alarm.getId());
         convertView.setTag(Long.valueOf(alarm.getId()));
+        Log.e("TAG", "tag from convertView: " + convertView.getTag());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)context).startAlarmDetailsActivityWithId((long)v.getTag());
+                Log.e("TAG", "inside onclicklistener from detailsactivity");
+                ((MainActivity) context).startAlarmDetailsActivity((long) v.getTag());
             }
         });
 

@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp">
-
-    <com.rey.material.widget.TextView
-        android:id="@+id/hourFromList"
-        style="@style/Material.Drawable.Ripple.Touch.Light"
-        android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+    <RelativeLayout
+        android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HH : MM"
-        android:textSize="40dp"
-        app:rd_enable="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/swithFromList"/>
+        android:layout_margin="16dp">
 
-    <com.rey.material.widget.Switch
-        style="@style/Material.Widget.Switch"
-        android:id="@+id/swithFromList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:checked="false"
-        android:gravity="center"
-        app:rd_enable="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@+id/hourFromList"/>
+        <com.rey.material.widget.TextView
+            android:id="@+id/hourFromList"
+            style="@style/Material.Drawable.Ripple.Touch.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HH : MM"
+            android:textSize="40dp"
+            app:rd_enable="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/swithFromList"/>
 
-</RelativeLayout>
+        <com.rey.material.widget.Switch
+            style="@style/Material.Widget.Switch"
+            android:id="@+id/swithFromList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:checked="false"
+            android:gravity="center"
+            app:rd_enable="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/hourFromList"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
