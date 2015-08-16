@@ -28,10 +28,13 @@ public class PlacesManager implements Constants {
     public ArrayList<Place> findPlaces(double lat, double lng, String placeType) {
         Log.e("tag", "inside findPlaces, type: " + placeType);
         String url = makeURL(lat, lng, placeType);
+        Log.e("tag", "url: "+ url);
         try {
             String json = getJson(url);
             JSONArray venues = new JSONObject(json).getJSONObject("response").getJSONArray("venues");
+            Log.e("tag", "venues length: "+venues.length());
             for (int i = 0; i < venues.length(); i++) {
+                Log.e("tag", "inside for, time: "+i);
                 JSONObject newPlace = venues.getJSONObject(i);
                 double latitude = newPlace.getJSONObject("location").getDouble("lat");
                 double longitude = newPlace.getJSONObject("location").getDouble("lng");
@@ -49,7 +52,6 @@ public class PlacesManager implements Constants {
 
     private String makeURL(double lat, double lng, String type) {
         StringBuilder url = new StringBuilder(URL_FIRST_PART);
-
         url.append("ll=" + lat + "," + lng);
         url.append("&client_id=" + CLIENT_ID);
         url.append("&client_secret=" + CLIENT_SECRET);

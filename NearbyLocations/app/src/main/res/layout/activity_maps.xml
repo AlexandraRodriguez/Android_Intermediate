@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="A dónde se le antoja joven?"
+            android:text="Qué o a dónde se le antoja?"
             android:textSize="15dp"
             android:layout_weight="1"/>
 
@@ -57,8 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:background="@color/soft_violet">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/previous"

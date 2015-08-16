@@ -34,6 +34,7 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
     private HashMap<String, MarkerManager> hashMap;
     private String currentType;
 
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -42,8 +43,9 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
         currentType = "none";
         hashMap = new HashMap<String, MarkerManager>(10);
         setUpMapIfNeeded();
-        setSpinner();
         mLocationProvider = new LocationProvider(this, this);
+        setSpinner();
+
     }
 
     public void onPreviousPressed(View view){
@@ -97,6 +99,7 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
                     hashMap.get(currentType).hideMarkers();
                 }
                 currentType = type;
+                Log.e("tag", "currentType changed to: "+currentType);
                 new PlaceFinder().execute(currentType);
             }
         }
@@ -176,7 +179,9 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
         @Override
         protected ArrayList<Place> doInBackground(String... params) {
             PlacesManager placesManager = new PlacesManager();
+            Log.e("tag", "currLat:"+currentLatitude + ", currLng:"+currentLongitude);
             ArrayList<Place> places = placesManager.findPlaces(currentLatitude, currentLongitude, params[0]);
+            Log.e("tag", "inside doInBackground, places size: "+places.size());
             return places;
         }
 
