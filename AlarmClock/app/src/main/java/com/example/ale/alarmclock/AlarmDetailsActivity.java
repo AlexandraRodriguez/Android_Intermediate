@@ -36,7 +36,7 @@ public class AlarmDetailsActivity extends Activity {
         super.onCreate(bundle);
         setContentView(R.layout.alarm_details);
         dbManager = new AlarmDataBaseManager(this);
-        setReferences();
+        loadReferences();
         id = getIntent().getExtras().getLong("id");
         if (id == -1) {
             alarm = new Alarm();
@@ -55,7 +55,7 @@ public class AlarmDetailsActivity extends Activity {
 
     }
 
-    public void setReferences() {
+    public void loadReferences() {
         time = (TextView) findViewById(R.id.hours);
         label = (EditText) findViewById(R.id.label);
         ringtoneSelection = (TextView) findViewById(R.id.ringtones);
@@ -98,6 +98,7 @@ public class AlarmDetailsActivity extends Activity {
     }
 
     public void setRingtone(View v) {
+        //RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
         startActivityForResult(intent, 1);
     }
@@ -124,7 +125,7 @@ public class AlarmDetailsActivity extends Activity {
         setTimePicker();
     }
 
-    public void saveAlarm(View v) {
+   ----> public void saveAlarm(View v) {
         if (id == -1) {
             alarm.setEnabled(true);
             id = dbManager.createAlarm(alarm);

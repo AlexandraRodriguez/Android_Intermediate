@@ -35,7 +35,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 calendar.set(Calendar.HOUR_OF_DAY, alarm.getHour());
                 calendar.set(Calendar.MINUTE, alarm.getMinutes());
                 calendar.set(Calendar.SECOND, 00);
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+          ---->      calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
 
                 setAlarm(context, calendar, pi);
 
@@ -68,7 +68,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     private static PendingIntent createPI(Context context, Alarm alarm) {
-        Intent intent = new Intent(context, AlarmService.class);
+      --->  Intent intent = new Intent(context, AlarmService.class);
         intent.putExtra(ID, alarm.getId());
         intent.putExtra(NAME, alarm.getName());
         intent.putExtra(HOUR, alarm.getHour());

@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">AlarmClock</string>
     <string name="Sunday">S</string>
-    <string name="Monday">L</string>
+    <string name="Monday">M</string>
     <string name="Tuesday">T</string>
     <string name="Wednesday">W</string>
     <string name="Thursday">T</string>
     <string name="Friday">F</string>
     <string name="Saturday">S</string>
+
+    <string name="ringtone">Silence</string>
+    <string name="ringtone_label">Alarm Tone</string>
+    <string name="save">SAVE</string>
+    <string name="delete">DELETE</string>
 
 </resources>

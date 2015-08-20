@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="6">
+    android:weightSum="6"
+    android:background="@color/c2">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -24,6 +25,7 @@
             android:gravity="center"
             android:onClick="onTimeTextSelected"
             android:text="HH : MM"
+            android:textColor="@color/white"
             android:textSize="40dp"
             app:rd_enable="true" />
 
@@ -35,11 +37,14 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <ToggleButton
-            android:id="@+id/toggSunday"
+        <com.rey.material.widget.RadioButton
+            style="@style/Material.Drawable.RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Sunday" />
+            android:text="@string/Sunday"
+            app:rbd_strokeColor="@color/white"
+            android:textColor="@color/white"/>
+
 
         <ToggleButton
             android:id="@+id/toggMonday"
@@ -85,26 +90,47 @@
         android:orientation="horizontal"
         android:padding="15dp">
 
-        <com.rey.material.widget.TextView
-            android:id="@+id/ringtones"
-            style="@style/Material.Drawable.Ripple.Touch.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:clickable="true"
-            android:onClick="setRingtone"
-            android:text="Default Ringtone"
-            android:textSize="20dp"
-            app:rd_enable="true" />
+            android:orientation="vertical">
+            <com.rey.material.widget.TextView
+                android:id="@+id/ringtoneLabel"
+                style="@style/Material.Drawable.Ripple.Touch.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="setRingtone"
+                android:text="@string/ringtone_label"
+                android:textColor="@color/c3"
+                android:textSize="20dp"
+                app:rd_enable="true" />
+            <com.rey.material.widget.TextView
+                android:id="@+id/ringtones"
+                style="@style/Material.Drawable.Ripple.Touch.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="setRingtone"
+                android:text="@string/ringtone"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                app:rd_enable="true" />
+        </LinearLayout>
 
 
         <com.rey.material.widget.CheckBox
             style="@style/Material.Drawable.CheckBox"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|left"
             android:text="Vibrate"
+            app:rbd_strokeColor="@color/white"
+            android:textColor="@color/white"
             android:textSize="20dp" />
 
 
@@ -121,6 +147,7 @@
         android:clickable="true"
         android:hint="Label"
         android:onClick="setLabel"
+        android:background="@color/c4"
         android:padding="15dp"
         android:textSize="20dp"
         app:rd_enable="true" />
@@ -138,8 +165,10 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:onClick="saveAlarm"
-            android:text="Save"
-            app:rd_enable="true" />
+            android:text="@string/save"
+            android:background="@color/c5"
+            app:rd_enable="true"
+            android:layout_marginRight="5dp"/>
 
         <com.rey.material.widget.Button
             style="@style/Material.Drawable.Ripple.Touch.Light"
@@ -148,8 +177,9 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:onClick="deleteAlarm"
-            android:text="Delete"
-            app:rd_enable="true" />
+            android:text="@string/delete"
+            android:background="@color/c5"
+            app:rd_enable="true"/>
     </LinearLayout>
 
 
