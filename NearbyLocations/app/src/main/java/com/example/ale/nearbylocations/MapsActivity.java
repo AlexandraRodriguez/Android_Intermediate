@@ -166,13 +166,6 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
 
     }
 
-    public double getCurrentLatitude() {
-        return currentLatitude;
-    }
-
-    public double getCurrentLongitude() {
-        return currentLongitude;
-    }
 
     private class PlaceFinder extends AsyncTask<String, Void, ArrayList<Place>> {
 

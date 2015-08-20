@@ -2,9 +2,6 @@ package com.example.ale.nearbylocations;
 
 import android.util.Log;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.parse.ParseAnalytics;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="array_values">
+        <item>Ninguno</item>
         <item>Pizza</item>
         <item>Pollo</item>
         <item>Heladeria</item>
