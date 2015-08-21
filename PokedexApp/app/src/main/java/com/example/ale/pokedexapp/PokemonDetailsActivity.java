@@ -1,17 +1,36 @@
 package com.example.ale.pokedexapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.List;
+
+import static android.os.Environment.getExternalStoragePublicDirectory;
+
 
 public class PokemonDetailsActivity extends Activity {
+
     private TabHost tabHost;
     private Pokemon pokemon;
 
@@ -62,7 +81,10 @@ public class PokemonDetailsActivity extends Activity {
         pokemon = new Pokemon();
         getPokemon(number);
         //setDetails();
+
+
     }
+
 
     private void loadReferences() {
         pokemonIcon = (ImageView) findViewById(R.id.pokemonIcon);
@@ -90,9 +112,9 @@ public class PokemonDetailsActivity extends Activity {
     }
 
 
-    public void savePokemon(View view){
-        pokemon.save();
-    }
+public void speakOutDesc(View view){
+    ParseApplication.speakOut(pokemon.getDescription());
+}
 
 
     private class PokemonGetter extends AsyncTask<Integer, Void, Pokemon> {

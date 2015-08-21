@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
 
     <ImageView
         android:id="@+id/icon"
@@ -11,18 +13,22 @@
         android:layout_alignParentLeft="true"
         android:layout_marginRight="6dip"
         android:src="@drawable/im1"
-        android:layout_alignBottom="@+id/name"/>
+        android:layout_alignBottom="@+id/name"
+        android:background="@color/pokemon_background"/>
 
 
     <TextView
         android:id="@+id/numberOnList"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/icon"
         android:text="Example application"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@color/yellow"
+        android:layout_margin="5dp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/name"

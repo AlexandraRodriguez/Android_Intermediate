@@ -8,55 +8,32 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.parse.ParseObject;
 
-@Table(name = "pokemon")
-public class Pokemon extends Model {
-    private String id;
-    @Column(name = "name", index = true)
+public class Pokemon {
     private String name;
-    @Column(name = "number")
     private int number;
-    @Column(name = "image")
     private Bitmap image;
 
-   @Column(name = "type")
     private String type;
-    @Column(name = "description")
     private String description;
-    @Column(name = "specie")
     private String specie;
-    @Column(name = "abilities")
     private String abilities;
-    @Column(name = "eggGroups")
     private String eggGroups;
 
-    @Column(name = "weight")
     private double weight;
-    @Column(name = "height")
     private double height;
-    @Column(name = "hp")
     private int hp;
-    @Column(name = "attack")
     private int attack;
-    @Column(name = "defense")
     private int defense;
-    @Column(name = "speed")
     private int speed;
-    @Column(name = "spAttack")
     private int spAttack;
-    @Column(name = "spDefense")
     private int spDefense;
 
     public Pokemon() {
-        super();
         type = "";
         abilities = "";
         eggGroups = "";
         height = 0.0;
         weight = 0.0;
-    }
-
-    public void saveLocally(){
-        save();
     }
 
 

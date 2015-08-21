@@ -13,7 +13,7 @@ import java.net.URLConnection;
 
 
 public class JSONManager {
-    public static final String BASE_URL = "http://pokeapi.co/api/v1/pokemon/";
+    public static final String BASE_URL = "http://pokeapi.co";
 
     public JSONManager() {
 
@@ -21,7 +21,7 @@ public class JSONManager {
 
     public Pokemon getNewPokemon(int num) {
         Pokemon pokemon = new Pokemon();
-        String url = makeURL(num);
+        String url = makePokemonURL(num);
         String json = getJson(url);
         try {
             JSONObject jPokemon = new JSONObject(json);
@@ -41,6 +41,11 @@ public class JSONManager {
                 pokemon.setType(types.getJSONObject(i).getString("name"));
             }
 
+            JSONArray descriptionArray = jPokemon.getJSONArray("descriptions");
+            String desc = descriptionArray.getJSONObject(0).getString("resource_uri");
+
+            pokemon.setDescription(getPokemonDesciption(desc));
+
             pokemon.setAttack(jPokemon.getInt("attack"));
             pokemon.setDefense(jPokemon.getInt("defense"));
             pokemon.setHeight(jPokemon.getInt("height"));
@@ -58,9 +63,26 @@ public class JSONManager {
         return pokemon;
     }
 
-    private String makeURL(int num) {
-        return BASE_URL + num + "/";
+    public String getPokemonDesciption(String d){
+        String res = "";
+        String url = makeDescriptionUrRL(d);
+        String json = getJson(url);
+        try {
+            JSONObject desc = new JSONObject(json);
+            res = desc.getString("description");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 
+    private String makePokemonURL(int num) {
+        return BASE_URL + "/api/v1/pokemon/" + num + "/";
+
+    }
+
+    private String makeDescriptionUrRL(String d){
+        return BASE_URL + d;
     }
 
     private String getJson(String mUrl) {

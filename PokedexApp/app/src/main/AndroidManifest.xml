@@ -11,9 +11,6 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="AA_DB_NAME" android:value="pokemon.db" />
-        <meta-data android:name="AA_DB_VERSION" android:value="1" />
-
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="@string/parse_app_id"/>

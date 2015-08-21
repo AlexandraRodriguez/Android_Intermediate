@@ -2,6 +2,16 @@
     <string name="app_name">PokedexApp</string>
     <string name="stats">Stats</string>
 
+    <style name="weight">Weight: </style>
+    <style name="height">Height: </style>
+
+    <style name="hp">HP: </style>
+    <style name="attack">Attack: </style>
+    <style name="defense">Defense: </style>
+    <style name="speed">Speed: </style>
+    <style name="sp_at">sp_at: </style>
+    <style name="sp_def">sp_def: </style>
+
     <string name="parse_app_id">eCwfilIItHGfHRTGnzQ5t6mrTimRIviwTEwFukuV</string>
     <string name="parse_client_key">mfVHQh6vX36WClkZ2YyTpVf0k3BaFS9gPrVfy31p</string>
 </resources>
