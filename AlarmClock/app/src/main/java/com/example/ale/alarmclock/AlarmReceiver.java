@@ -19,6 +19,10 @@ public class AlarmReceiver extends BroadcastReceiver {
     public static final String MINUTE = "minutes";
     public static final String TONE = "alarmTone";
     public static final String LABEL = "label";
+    public static final String DAY_OF_MONTH = "day";
+    public static final String MONTH = "month";
+    public static final String YEAR = "year";
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -35,7 +39,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 calendar.set(Calendar.HOUR_OF_DAY, alarm.getHour());
                 calendar.set(Calendar.MINUTE, alarm.getMinutes());
                 calendar.set(Calendar.SECOND, 00);
-          ---->      calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+               calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+               // calendar.set(alarm.getYear(), alarm.getMonth(), alarm.getDayOfMonth());
 
                 setAlarm(context, calendar, pi);
 
@@ -68,12 +73,15 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     private static PendingIntent createPI(Context context, Alarm alarm) {
-      --->  Intent intent = new Intent(context, AlarmService.class);
+                              Intent intent = new Intent(context, AlarmService.class);
         intent.putExtra(ID, alarm.getId());
         intent.putExtra(NAME, alarm.getName());
         intent.putExtra(HOUR, alarm.getHour());
         intent.putExtra(MINUTE, alarm.getMinutes());
         intent.putExtra(TONE, alarm.getAlarmToneName());
+        //intent.putExtra(DAY_OF_MONTH, alarm.getDayOfMonth());
+        //intent.putExtra(MONTH, alarm.getMonth());
+        //intent.putExtra(YEAR, alarm.getYear());
 
         return PendingIntent.getService(context,
                 (int) alarm.getId(),

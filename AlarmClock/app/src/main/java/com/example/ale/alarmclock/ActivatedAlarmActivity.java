@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.rey.material.widget.TextView;
 
@@ -22,26 +23,45 @@ public class ActivatedAlarmActivity extends Activity {
     private MediaPlayer mediaPlayer;
     private TextView txtTime;
     private TextView txtLabel;
+    private TextView txtDate;
+
 
     private static final int WAKELOCK_TIMEOUT = 60 * 1000;
 
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
-        setContentView(R.layout.activated_alarm);
+        this.setContentView(R.layout.activated_alarm);
 
         String name = getIntent().getStringExtra(AlarmReceiver.NAME);
         int timeHour = getIntent().getIntExtra(AlarmReceiver.HOUR, 0);
         int timeMinute = getIntent().getIntExtra(AlarmReceiver.MINUTE, 0);
         String tone = getIntent().getStringExtra(AlarmReceiver.TONE);
+        int dayOfMonth  = getIntent().getIntExtra(AlarmReceiver.DAY_OF_MONTH, 0);
+        int month = getIntent().getIntExtra(AlarmReceiver.MONTH, 0);
+        int year = getIntent().getIntExtra(AlarmReceiver.YEAR, 0);
 
         txtTime = (TextView)findViewById(R.id.txtTime);
         txtTime.setText(timeHour + " : " + timeMinute);
         txtLabel = (TextView)findViewById(R.id.txtLabel);
         txtLabel.setText(name);
+        txtDate = (TextView) findViewById(R.id.txtAlarmDate);
+        txtDate.setText(dayOfMonth+"/"+month+"/"+year);
+
+
+
+
+        Button btnStop = (Button) findViewById(R.id.btnStop);
+        btnStop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mediaPlayer.stop();
+                finish();
+            }
+        });
 
         playAlarm(tone);
-
 
         Runnable releaseWakelock = new Runnable() {
 
@@ -61,9 +81,6 @@ public class ActivatedAlarmActivity extends Activity {
 
     }
 
-    private void createRunnable() {
-
-    }
 
     private void playAlarm(String tone) {
         mediaPlayer = new MediaPlayer();
@@ -73,7 +90,7 @@ public class ActivatedAlarmActivity extends Activity {
                 if(uri != null){
                     mediaPlayer.setDataSource(this, uri);
                     mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-                    mediaPlayer.setLooping(true);
+                    mediaPlayer.setLooping(false);
                     mediaPlayer.prepare();
                     mediaPlayer.start();
                 }
@@ -81,11 +98,6 @@ public class ActivatedAlarmActivity extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void stopAlarm(View v){
-        mediaPlayer.stop();
-        finish();
     }
 
 

@@ -6,7 +6,8 @@
     <RelativeLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:padding="16dp"
+        android:background="@color/white">
 
         <com.rey.material.widget.TextView
             android:id="@+id/hourFromList"
@@ -15,10 +16,12 @@
             android:layout_height="wrap_content"
             android:text="HH : MM"
             android:textSize="40dp"
+            android:textColor="@color/c2"
             app:rd_enable="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/swithFromList"/>
+            android:layout_toLeftOf="@+id/swithFromList"
+            android:padding="10dp" />
 
         <com.rey.material.widget.Switch
             style="@style/Material.Widget.Switch"

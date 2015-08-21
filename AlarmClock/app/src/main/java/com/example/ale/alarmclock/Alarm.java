@@ -13,6 +13,9 @@ public class Alarm {
     private Uri alarmTone;
     private boolean enabled;
     private String label;
+    private int dayOfMonth;
+    private int month;
+    private int year;
 
     public Alarm() {
         id = -1;
@@ -21,6 +24,38 @@ public class Alarm {
         name = "";
         alarmTone = null;
         enabled = false;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public int getDayOfMonth() {
+        return dayOfMonth;
+    }
+
+    public void setDayOfMonth(int dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public long getId() {

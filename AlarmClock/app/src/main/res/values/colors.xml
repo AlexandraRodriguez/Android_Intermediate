@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="light_blue">#62c7fa</color>
-    <color name="c1">#218eca</color>
-    <color name="c2">#21936f</color>
-    <color name="c3">#45d5a8</color>
-    <color name="c4">#27af84</color>
+    <color name="c1">#7cf7e7</color>
+    <color name="c2">#0ccfb5</color>
+    <color name="c3">#0aaf99</color>
+    <color name="c4">#c5eafd</color>
     <color name="c5">#7ce2c2</color>
     <color name="letters">#a3dcfc</color>
     <color name="white">#ffffff</color>
+    <color name="gray">#98a8bb</color>
+    <color name="black">#000000</color>
+
+    <color name="back">#098f8d</color>
+    <color name="buttons">#cefcfb</color>
+    <color name="items">#8ef8f6</color>
+    <color name="labels">#defdfc</color>
+    <color name="ac_back">#0cbfbc</color>
 </resources>

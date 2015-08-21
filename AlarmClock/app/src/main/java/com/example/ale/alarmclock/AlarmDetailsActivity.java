@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ToggleButton;
 
 import com.example.ale.alarmclock.db.AlarmDataBaseManager;
+import com.rey.material.app.DatePickerDialog;
 import com.rey.material.app.TimePickerDialog;
 import com.rey.material.widget.EditText;
 import com.rey.material.widget.TextView;
@@ -16,17 +17,11 @@ import com.rey.material.widget.TextView;
 public class AlarmDetailsActivity extends Activity {
 
     private TextView time;
+    private TextView txtDate;
     private TextView ringtoneSelection;
     private Alarm alarm;
     private AlarmDataBaseManager dbManager;
     private EditText label;
-    private ToggleButton toggSunday;
-    private ToggleButton toggMonday;
-    private ToggleButton toggTuesday;
-    private ToggleButton toggWednesday;
-    private ToggleButton toggThursday;
-    private ToggleButton toggFriday;
-    private ToggleButton toggSaturday;
 
     private long id;
 
@@ -41,6 +36,7 @@ public class AlarmDetailsActivity extends Activity {
         if (id == -1) {
             alarm = new Alarm();
             setTimePicker();
+         //   setDatePicker();
         } else {
             alarm = dbManager.getAlarm(id);
             setAlarmDetails();
@@ -52,20 +48,14 @@ public class AlarmDetailsActivity extends Activity {
         time.setText(alarm.getHour() + " : " + alarm.getMinutes());
         label.setText(alarm.getName());
         ringtoneSelection.setText(RingtoneManager.getRingtone(this, alarm.getAlarmTone()).getTitle(this));
-
+      //  txtDate.setText(alarm.getDayOfMonth() + "/" + alarm.getMonth() + "/" + alarm.getYear());
     }
 
     public void loadReferences() {
         time = (TextView) findViewById(R.id.hours);
         label = (EditText) findViewById(R.id.label);
         ringtoneSelection = (TextView) findViewById(R.id.ringtones);
-        toggSunday = (ToggleButton) findViewById(R.id.toggSunday);
-        toggMonday = (ToggleButton) findViewById(R.id.toggMonday);
-        toggTuesday = (ToggleButton) findViewById(R.id.toggTuesday);
-        toggWednesday = (ToggleButton) findViewById(R.id.toggWednesday);
-        toggThursday = (ToggleButton) findViewById(R.id.toggThursday);
-        toggFriday = (ToggleButton) findViewById(R.id.toggFriday);
-        toggSaturday = (ToggleButton) findViewById(R.id.toggSaturday);
+     //   txtDate = (TextView) findViewById(R.id.txtDate);
     }
 
     public void setTimePicker() {
@@ -92,13 +82,38 @@ public class AlarmDetailsActivity extends Activity {
         dialog.show();
     }
 
+    public void setDatePicker() {
+        final DatePickerDialog dialog = new DatePickerDialog(this);
+        dialog.positiveAction("Ok");
+        dialog.negativeAction("Cancel");
+        dialog.positiveActionClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int dayOfMonth = dialog.getDay();
+                int month = dialog.getMonth();
+                int year = dialog.getYear();
+                alarm.setDayOfMonth(dayOfMonth);
+                alarm.setMonth(month);
+                alarm.setYear(year);
+                txtDate.setText(dayOfMonth + "/" + month + "/" + year);
+                dialog.dismiss();
+            }
+        });
+        dialog.negativeActionClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
     public void setLabel(View v) {
         alarm.setName(label.getEditableText().toString());
         dbManager.updateAlarm(alarm);
     }
 
     public void setRingtone(View v) {
-        //RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
         startActivityForResult(intent, 1);
     }
@@ -125,12 +140,12 @@ public class AlarmDetailsActivity extends Activity {
         setTimePicker();
     }
 
-   ----> public void saveAlarm(View v) {
+    public void saveAlarm(View v) {
         if (id == -1) {
             alarm.setEnabled(true);
             id = dbManager.createAlarm(alarm);
             dbManager.getAlarm(id).setId(id);
-        }else{
+        } else {
             alarm.setEnabled(true);
             dbManager.updateAlarm(alarm);
         }
@@ -139,7 +154,7 @@ public class AlarmDetailsActivity extends Activity {
     }
 
     public void deleteAlarm(View v) {
-        if(id != -1){
+        if (id != -1) {
             AlarmReceiver.cancelAlarms(this);
             dbManager.deleteAlarm(alarm.getId());
             AlarmReceiver.setAlarms(this);

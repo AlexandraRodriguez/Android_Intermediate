@@ -2,13 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/ac_back">
 
     <com.rey.material.widget.TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtTime"
-        android:text="time"
+        android:text="Time"
+        android:textSize="60dp"
+        android:layout_margin="20dp"
+        style="@style/Material.Drawable.Ripple.Touch.Light"
+    android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:rd_enable="true" />
+
+    <com.rey.material.widget.TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtAlarmDate"
+        android:text="Date"
+        android:textSize="20dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/white"
         style="@style/Material.Drawable.Ripple.Touch.Light"
         app:rd_enable="true"/>
 
@@ -16,19 +36,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtLabel"
-        android:text="label"
+        android:text="Alarm Name"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:layout_margin="20dp"
+        android:textColor="@color/buttons"
         style="@style/Material.Drawable.Ripple.Touch.Light"
         app:rd_enable="true"/>
 
     <com.rey.material.widget.Button
-        style="@style/Material.Drawable.Ripple.Touch.Light"
+        style="@style/Material.Drawable.Ripple.Wave.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:onClick="stopAlarm"
-        android:text="Stop Alarm"
-        app:rd_enable="true"
-        android:clickable="true" />
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:id="@+id/btnStop"
+        android:text="@string/stop"
+        android:textColor="@color/white"
+        android:background="@color/back"
+        android:padding="10dp"
+        app:rd_enable="true" />
 
 
 </LinearLayout>
